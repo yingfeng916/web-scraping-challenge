@@ -30,6 +30,8 @@ def scrape():
     url_3 = "https://space-facts.com/mars/"
     tables = pd.read_html(url_3)
     df = tables[0]
+    df = df.rename(columns = {0:'Description', 1: 'Mars'})
+    df = df.set_index('Description')
     html_table = df.to_html()
     
     
@@ -59,7 +61,11 @@ def scrape():
         hemisphere_image_urls.append(d1)
         browser.back()
         
-        data = {"news_title":news_title, "news_paragraph":news_p, "featured_image":featured_image_url, "facts_table":html_table, "hemispheres":hemisphere_image_urls}
+        data = {"news_title":news_title, 
+                "news_paragraph":news_p, 
+                "featured_image":featured_image_url, 
+                "facts_table":html_table, 
+                "hemispheres":hemisphere_image_urls}
 
     return data
         
